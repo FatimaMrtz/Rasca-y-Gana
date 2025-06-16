@@ -1,191 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rasca y Gana - ¡Juega y Gana!</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
-body {
-background-color: #FFD6FA;
-font-family: Arial, sans-serif;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin: 0;
-min-height: 100vh;
-}
-header {
-text-align: center;
-margin-bottom: 20px;
-}
-header img {
-width: 150px;
-}
-h1 {
-color: #ff6b6b;
-margin-bottom: 5px;
-}
-p {
-color: #555;
-font-size: 18px;
-}
-.grid {
-display: grid;
-grid-template-columns: repeat(10, 60px);
-gap: 10px;
-margin-bottom: 20px;
-}
-.casilla {
-width: 60px;
-height: 60px;
-background-color: #ffe66d;
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: bold;
-color: #333;
-border-radius: 5px;
-cursor: pointer;
-position: relative;
-overflow: hidden;
-}
-.casilla:hover {
-background-color: #f8c291;
-}
-.overlay {
-background-color: #bdc3c7;
-width: 100%;
-height: 100%;
-position: absolute;
-top: 0;
-left: 0;
-z-index: 2;
-transition: opacity 0.3s;
-}
-.casilla.rascada .overlay {
-opacity: 0;
-pointer-events: none;
-}
-.contador {
-font-size: 20px;
-margin-bottom: 10px;
-color: #333;
-}
-.whatsapp {
-margin-top: 10px;
-}
-.whatsapp a {
-color: #25d366;
-font-size: 30px;
-text-decoration: none;
-transition: transform 0.3s;
-}
-.whatsapp a:hover {
-transform: scale(1.2);
-}
-/* Estilos del popup */
-.popup {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-background-color: #6c5ce7;
-color: white;
-padding: 20px;
-border-radius: 10px;
-text-align: center;
-z-index: 10;
-display: none;
-animation: fadeIn 0.5s;
-}
-@keyframes fadeIn {
-from { opacity: 0; }
-to { opacity: 1; }
-}
-.popup i {
-font-size: 30px;
-margin-bottom: 10px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasca y Gana - ¡Juega y Gana!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: #FFD6FA;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0 15px;
+    }
+    marquee {
+      background-color: #ff6b6b;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 10px;
+      width: 100%;
+    }
+    header {
+      text-align: center;
+      margin: 20px 0;
+    }
+    header img {
+      width: 150px;
+    }
+    h1 {
+      color: #ff6b6b;
+      margin-bottom: 5px;
+    }
+    p {
+      color: #555;
+      font-size: 18px;
+    }
+    .descripcion {
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .descripcion h2 {
+      color: #6c5ce7;
+    }
+    .descripcion ol {
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #444;
+    }
+    .contador {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 10px;
+      max-width: 640px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .casilla {
+      width: 60px;
+      height: 60px;
+      background-color: #ffe66d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #333;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .casilla:hover {
+      background-color: #f8c291;
+    }
+    .overlay {
+      background-color: #bdc3c7;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      transition: opacity 0.3s;
+    }
+    .casilla.rascada .overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .whatsapp {
+      margin-top: 10px;
+    }
+    .whatsapp a {
+      color: #25d366;
+      font-size: 30px;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+    .whatsapp a:hover {
+      transform: scale(1.2);
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #6c5ce7;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 10;
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .popup i {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      color: #888;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<header>
-<img src="Rasca y Gana.png" alt="Rasca y Gana">
-<h1>Rasca y Gana - ¡Solo $10!</h1>
-<p>Encuentra los 50 premios ocultos en 80 casillas 🎉</p>
-</header>
 
-<div class="contador">
-Premios restantes: <span id="premiosRestantes">50</span>
-</div>
+  <marquee behavior="scroll" direction="left">
+    🎁 ¡Juega ya! Solo $10 y podrías ganar increíbles premios ocultos en nuestras casillas 🎁
+  </marquee>
 
-<div class="grid" id="grid">
-<!-- Aquí se generan las casillas -->
-</div>
+  <header>
+    <img src="Rasca y Gana.png" alt="Rasca y Gana">
+    <h1>Rasca y Gana - ¡Solo $10!</h1>
+    <p>¡Encuentra los 50 premios ocultos entre 80 casillas! ¿Podrás encontrarlos todos?</p>
+  </header>
 
-<div class="whatsapp">
-<a href="https://wa.me/529213330499" target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
-</div>
+  <section class="descripcion">
+    <h2>¿Qué es Rasca y Gana?</h2>
+    <p>Es un juego digital de emoción y suerte. Por solo $10 MXN accedes a una tabla con 80 casillas. ¡Detrás de 50 hay premios escondidos! Al hacer clic en una casilla, sabrás si has ganado o no. ¡Es simple, divertido y adictivo!</p>
 
-<!-- Popup de ganador -->
-<div class="popup" id="popupGanador">
-<i class="fas fa-trophy"></i>
-<p>¡Felicidades, encontraste un premio! 🎉</p>
-</div>
+    <h2>¿Cómo se juega?</h2>
+    <ol>
+      <li>Haz clic en cualquier casilla para rascarla.</li>
+      <li>Si aparece 🎉, ¡felicidades, ganaste!</li>
+      <li>Si aparece 💔, inténtalo con otra.</li>
+      <li>¡Juega hasta encontrar todos los premios!</li>
+    </ol>
+  </section>
 
-<script>
-const grid = document.getElementById("grid");
-const premiosRestantesEl = document.getElementById("premiosRestantes");
-const popupGanador = document.getElementById("popupGanador");
+  <div class="contador">
+    Premios restantes: <span id="premiosRestantes">50</span>
+  </div>
 
-// Generar 80 casillas numeradas
-let premiosRestantes = 50;
-let premios = Array(80).fill(false);
+  <div class="grid" id="grid">
+    <!-- Casillas generadas con JS -->
+  </div>
 
-// Asignar premios aleatoriamente
-for (let i = 0; i < 50; i++) {
-let posicion;
-do {
-posicion = Math.floor(Math.random() * 80);
-} while (premios[posicion]);
-premios[posicion] = true;
-}
+  <div class="whatsapp">
+    <a href="https://wa.me/529213330499" target="_blank" title="Contáctanos por WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
 
-// Generar HTML de cada casilla
-premios.forEach((esPremio, index) => {
-const casilla = document.createElement("div");
-casilla.classList.add("casilla");
-casilla.innerHTML = `<div class="overlay"></div>${index + 1}`;
+  <div class="popup" id="popupGanador">
+    <i class="fas fa-trophy"></i>
+    <p>¡Felicidades, encontraste un premio! 🎉</p>
+  </div>
 
-casilla.addEventListener("click", () => {
-if (!casilla.classList.contains("rascada")) {
-casilla.classList.add("rascada");
-if (esPremio) {
-casilla.style.backgroundColor = "#6c5ce7";
-casilla.innerHTML = "🎉";
-premiosRestantes--;
-premiosRestantesEl.textContent = premiosRestantes;
-mostrarPopup();
-} else {
-casilla.style.backgroundColor = "#d63031";
-casilla.innerHTML = "💔";
-}
-}
-});
+  <footer>
+    <p>&copy; 2025 Rasca y Gana. Todos los derechos reservados.</p>
+  </footer>
 
-grid.appendChild(casilla);
-});
+  <script>
+    const grid = document.getElementById("grid");
+    const premiosRestantesEl = document.getElementById("premiosRestantes");
+    const popupGanador = document.getElementById("popupGanador");
 
-function mostrarPopup() {
-popupGanador.style.display = "block";
-setTimeout(() => {
-popupGanador.style.display = "none";
-}, 3000); // Se oculta después de 3 segundos
-}
-</script>
+    let premiosRestantes = 50;
+    let premios = Array(80).fill(false);
+
+    for (let i = 0; i < 50; i++) {
+      let posicion;
+      do {
+        posicion = Math.floor(Math.random() * 80);
+      } while (premios[posicion]);
+      premios[posicion] = true;
+    }
+
+    premios.forEach((esPremio, index) => {
+      const casilla = document.createElement("div");
+      casilla.classList.add("casilla");
+      casilla.innerHTML = `<div class="overlay"></div>${index + 1}`;
+
+      casilla.addEventListener("click", () => {
+        if (!casilla.classList.contains("rascada")) {
+          casilla.classList.add("rascada");
+          if (esPremio) {
+            casilla.style.backgroundColor = "#6c5ce7";
+            casilla.innerHTML = "🎉";
+            premiosRestantes--;
+            premiosRestantesEl.textContent = premiosRestantes;
+            mostrarPopup();
+          } else {
+            casilla.style.backgroundColor = "#d63031";
+            casilla.innerHTML = "💔";
+          }
+        }
+      });
+
+      grid.appendChild(casilla);
+    });
+
+    function mostrarPopup() {
+      popupGanador.style.display = "block";
+      setTimeout(() => {
+        popupGanador.style.display = "none";
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
