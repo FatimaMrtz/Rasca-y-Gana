@@ -149,12 +149,12 @@
   <header>
     <img src="Rasca y Gana.png" alt="Rasca y Gana">
     <h1>Rasca y Gana - ¡Solo $10!</h1>
-    <p>¡Encuentra los 50 premios ocultos entre 80 casillas! ¿Podrás encontrarlos todos?</p>
+    <p>¡Encuentra los 63 premios ocultos entre 100 casillas! ¿Podrás encontrarlos todos?</p>
   </header>
 
   <section class="descripcion">
     <h2>¿Qué es Rasca y Gana?</h2>
-    <p>Es un juego digital de emoción y suerte. Por solo $10 MXN accedes a una tabla con 80 casillas. ¡Detrás de 50 hay premios escondidos! Al hacer clic en una casilla, sabrás si has ganado o no. ¡Es simple, divertido y adictivo!</p>
+    <p>Es un juego digital de emoción y suerte. Por solo $10 MXN accedes a una tabla con 100 casillas. ¡Detrás de 63 hay premios escondidos! Al hacer clic en una casilla, sabrás si has ganado o no. ¡Es simple, divertido y adictivo!</p>
 
     <h2>¿Cómo se juega?</h2>
     <ol>
@@ -163,10 +163,24 @@
       <li>Si aparece 💔, inténtalo con otra.</li>
       <li>¡Juega hasta encontrar todos los premios!</li>
     </ol>
+
+<h2>¿Qué premios puedes ganar?</h2>
+      <p>Laberintos en forma de nave espacial
+      Llaveros de cubitos armables
+      Mini resortes
+      Malla con canica
+      Mini Spinners
+      Baloncito armable
+      Pollo para el dedo
+      Manitas pegajosas
+      Manitas ruidosas
+      Cornetas
+      Mini flautas
+      Flauta ruido de pájaro</p>
   </section>
 
   <div class="contador">
-    Premios restantes: <span id="premiosRestantes">50</span>
+    Premios restantes: <span id="premiosRestantes">63</span>
   </div>
 
   <div class="grid" id="grid">
@@ -185,7 +199,7 @@
   </div>
 
   <footer>
-    <p>&copy; 2025 Rasca y Gana. Todos los derechos reservados.</p>
+    <p>&copy; Fatima Jaim - 6to Semestre.</p>
   </footer>
 
   <script>
@@ -193,13 +207,13 @@
     const premiosRestantesEl = document.getElementById("premiosRestantes");
     const popupGanador = document.getElementById("popupGanador");
 
-    let premiosRestantes = 50;
-    let premios = Array(80).fill(false);
+    let premiosRestantes = 63;
+    let premios = Array(100).fill(false);
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 63; i++) {
       let posicion;
       do {
-        posicion = Math.floor(Math.random() * 80);
+        posicion = Math.floor(Math.random() * 100);
       } while (premios[posicion]);
       premios[posicion] = true;
     }
